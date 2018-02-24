@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z "$LD_LIBRARY_PATH" ] ; then
+    export LD_LIBRARY_PATH=/opt/apps/mopac
+else
+    export LD_LIBRARY_PATH=/opt/apps/mopac:$LD_LIBRARY_PATH
+fi
+
+export MOPAC_LICENSE=/opt/apps/mopac
+
+exec /opt/apps/mopac/MOPAC2016.exe "$@"
