@@ -1,11 +1,17 @@
 #!/bin/bash
 
+MOPAC_PATH=/opt/apps/mopac
+MOPAC_EXE=MOPAC2016.exe
+
 if [ -z "$LD_LIBRARY_PATH" ] ; then
-    export LD_LIBRARY_PATH=/opt/apps/mopac
+    export LD_LIBRARY_PATH=$MOPAC_PATH
 else
-    export LD_LIBRARY_PATH=/opt/apps/mopac:$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=$MOPAC_PATH:$LD_LIBRARY_PATH
 fi
 
-export MOPAC_LICENSE=/opt/apps/mopac
+export MOPAC_LICENSE=$MOPAC_PATH
 
-exec /opt/apps/mopac/MOPAC2016.exe "$@"
+# Append THREADS=1 to control line
+sed -i "1 s|$|THREADS=1|" "$1".dat
+
+exec $MOPAC_PATH/$MOPAC_EXE "$1"
